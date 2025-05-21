@@ -1,5 +1,6 @@
+from __future__ import annotations
+
 import asyncio
-from typing import Optional
 
 import pytest
 from pycrdt import Text
@@ -10,7 +11,7 @@ from ypywidgets.comm import CommWidget
 class Widget1(CommWidget):
     foo = Reactive[str]("foo1")
     bar = Reactive[str]("bar1")
-    baz = Reactive[Optional[str]](None)
+    baz = Reactive[str | None](None)
 
 
 class Widget2(CommWidget):
@@ -23,7 +24,7 @@ class Widget2(CommWidget):
 
 @pytest.mark.asyncio
 async def test_create_ydoc(synced_widgets):
-    local_widget, remote_widget = await synced_widgets
+    local_widget, remote_widget = synced_widgets
 
     local_text = Text()
     local_widget.ydoc["text"] = local_text
@@ -39,7 +40,7 @@ async def test_create_ydoc(synced_widgets):
 @pytest.mark.asyncio
 @pytest.mark.parametrize("widget_factories", ((Widget1, Widget1),))
 async def test_sync_attribute(widget_factories, synced_widgets):
-    local_widget, remote_widget = await synced_widgets
+    local_widget, remote_widget = synced_widgets
 
     with pytest.raises(AttributeError):
         assert local_widget.wrong_attr1
@@ -61,7 +62,7 @@ async def test_sync_attribute(widget_factories, synced_widgets):
 @pytest.mark.asyncio
 @pytest.mark.parametrize("widget_factories", ((Widget1, Widget2),))
 async def test_watch_attribute(widget_factories, synced_widgets, capfd):
-    local_widget, remote_widget = await synced_widgets
+    local_widget, remote_widget = synced_widgets
 
     local_widget.foo = "foo"
 
