@@ -36,8 +36,8 @@ jobs:
     - name: Ensure pip >= v25.1
       run: python -m pip install "pip >= 25.1"
 
-    - name: Install ypywidgets
-      run: pip install --group dev .
+    - name: Install ypywidgets in dev mode
+      run: pip install --group dev -e .
 
     - name: Check types
       run: mypy src

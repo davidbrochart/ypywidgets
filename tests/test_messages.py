@@ -20,11 +20,11 @@ async def test_messages(synced_widgets):
     remote_widget.on_receive(on_remote_message)
 
     local_widget.send(b"Hello")
-    await asyncio.sleep(0.01)
+    await asyncio.sleep(0.1)
     assert remote_messages == [b"Hello"]
     assert local_messages == [b"Hello, World!"]
 
     remote_widget.send(b"msg")
-    await asyncio.sleep(0.01)
+    await asyncio.sleep(0.1)
     assert remote_messages == [b"Hello"]
     assert local_messages == [b"Hello, World!", b"msg"]

@@ -1,6 +1,5 @@
-from __future__ import annotations
-
 import asyncio
+from typing import Optional
 
 import pytest
 from pycrdt import Text
@@ -11,7 +10,7 @@ from ypywidgets.comm import CommWidget
 class Widget1(CommWidget):
     foo = Reactive[str]("foo1")
     bar = Reactive[str]("bar1")
-    baz = Reactive[str | None](None)
+    baz = Reactive[Optional[str]](None)
 
 
 class Widget2(CommWidget):
